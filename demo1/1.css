@@ -1,0 +1,457 @@
+@font-face {
+    font-family: 'jirengu';  /* project id 376300 */
+    src: url('//at.alicdn.com/t/font_3ihrfxa934ayk3xr.eot');
+    src: url('//at.alicdn.com/t/font_3ihrfxa934ayk3xr.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_3ihrfxa934ayk3xr.woff') format('woff'),
+    url('//at.alicdn.com/t/font_3ihrfxa934ayk3xr.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_3ihrfxa934ayk3xr.svg#iconfont') format('svg');
+}
+.iconfont {
+    font-family:"jirengu" !important;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+.layout {
+    width: 1200px;
+    margin: 0 auto;
+}
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.nav {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: #000;
+  opacity: 0.5;
+  z-index: 100;
+}
+.nav .container .logo{
+    float: left;
+}
+.nav .container .item {
+    float: right;
+    margin-top: 40px;
+}
+.nav .container .item li {
+    float: left;
+    padding: 0 10px;
+}
+.nav .container .item li a {
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #fff;
+    text-decoration: none;
+}
+.nav .container .item li a:hover {
+    color: #fed136;
+}
+.nav .container .logo {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.nav .container .logo a {
+    font-family:'Edwardianc62a13a9319eaf' ;
+    color: #fed136;
+    font-size: 40px;
+    text-decoration: none;
+}
+#header {
+    background: url(http://game.gtimg.cn/images/yxzj/cp/a20160128swk/tc_pic1.jpg) center center no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+}
+#header .content {
+    text-align: center;
+}
+#header .content .txt {
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+#header .content .txt img{
+    padding-bottom: 40px;
+}
+#header .content .txt h2 {
+    font-size: 40px;
+    font-style: italic;
+    padding-bottom: 30px;
+    color: #fff;
+    font-family:'hdjxingshuc65c8719b19eaf';
+}
+#header .content .txt img{
+  margin-top: 200px;
+  padding-bottom: 20px;
+  display: inline-block;
+}
+#header .content .txt .h-logo:hover{
+ cursor: pointer;
+  opacity: 0.6;
+}
+#header .content .txt a{
+    display: inline-block;
+    text-decoration: none;
+    color: #FFF;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 20px 38px;
+    background: #fed136;
+}
+#header .content .txt a:hover {
+    background: #feba12;
+    transition: 0.5s;
+}
+
+
+#service .content {
+    text-align: center;
+}
+#service .content > h1 {   
+   padding-top: 5rem;
+}
+#service .content h1,#portfolio .content h1,#about .content h1,#team .content h1,#contact .content h1 {
+    margin-top: 150px;
+    margin-bottom: 15px;
+    font-size: 40px;
+    font-weight: 700;
+}
+#service .content span,#portfolio .content span,#about .content span,#team .content span,#contact .content span {
+    font-size: 16px;
+    font-weight: 400;
+    color: #777;
+    font-style: italic;
+}
+#service .content .items {
+    margin-top: 50px;
+    margin-bottom: 150px;
+}
+#service .content .items h3 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    position: relative;
+}
+#service .content .items p {
+    font-size: 14px;
+    line-height: 1.75em;
+    color: #777;
+}
+#service .content .items li,#portfolio .content .items li {
+    float: left;
+    width: 30%;
+    margin-left: 30px;
+}
+#service .content .items img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #fed136;
+    margin: 20px auto;
+}
+#portfolio .content {
+    text-align: center;
+}
+#portfolio .content > h1 {   
+   padding-top: 5rem;
+}
+#portfolio .content .items {
+    margin-top: 30px;
+}
+#portfolio .content .items li {
+    margin-bottom: 60px;
+}
+#portfolio .content .items li .img {
+    margin-bottom: 20px;
+    position: relative;
+}
+#portfolio .content .items li .hover {
+    position: absolute;
+    background: #fed136;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+#portfolio .content .items li .hover:before {
+    content: '\e646';
+    display: inline-block;
+    position: absolute;
+    color: #fff;
+    font-size: 70px;
+    top: 32%;
+    left: 40%;
+}
+#portfolio .content .items li .hover:hover {
+    opacity: 0.9;
+    transition: 0.5s;
+}
+#portfolio .content .items li h3 {
+    font-size: 18px;
+}
+#portfolio .content .items li .img img {
+    width: 100%;
+}
+#portfolio .content .items li p {
+    padding-top: 10px;
+    font-size: 18px;
+    color: #777;
+    font-family:'Academy-Italicc67ab4c3419eaf';
+}
+#about .content {
+    text-align: center;
+}
+#about .content>h1{
+  padding-top: 5rem;
+}
+#about .content .items {
+}
+#about .content .items li {
+}
+#about .content .items li .img {
+    width: 156px;
+    height: 156px;
+    margin: 80px auto 80px auto;
+    border-radius: 50%;
+}
+#about .content .items li .img:after {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    border: 2px solid #fed136;
+}
+#about .content .items li .img img {
+    width: 100%;
+    display: block;
+    border-radius: 50%;
+}
+#about .content .items li {
+    position: relative;
+}
+#about .content .items li:nth-child(odd) .txt {
+    position: absolute;
+    text-align: right;
+    width: 40%;
+    top: 0;
+    left: 30px;
+}
+#about .content .items li .txt h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+#about .content .items li .txt p {
+    font-size: 14px;
+    line-height: 1.75em;
+    color: #777;
+}
+#about .content .items li:nth-child(even) .txt {
+    position: absolute;
+    text-align: left;
+    width: 40%;
+    top: 0;
+    right: 30px;
+}
+#about .content .items li .circle {
+    width: 156px;
+    height: 156px;
+    margin: 80px auto;
+    background: #fed136;
+    border-radius: 50%;
+    padding-top: 35px;
+}
+#about .content .items li .circle h4 {
+    font-size: 18px;
+    line-height: 26px;
+    color: #fff;
+}
+#team .content {
+    text-align: center;
+}
+#team .content>h1{
+  padding-top: 5rem;
+}
+#team .content .items {
+    margin-top: 30px;
+}
+#team .content .items>.item {
+    width: 30%;
+    float: left;
+    margin-left: 30px;
+    text-align: center;
+}
+#team .content .items>.item>span {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+#team .content .items .item .thumb {
+    width: 240px;
+    height: 240px;
+    margin: 30px auto;
+    border-radius: 50%;
+}
+#team .content .items .item .thumb img {
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+}
+#team .content .items>.item .links {
+    display: inline-block;
+}
+#team .content .items>.item .links li {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: black;
+    margin: 0 5px;
+}
+#team .content .items>.item .links li:hover {
+    background: #fed136;
+    transition: 0.5s;
+}
+#team .content .items>.item .links li div {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    line-height: 40px;
+}
+#team .content p {
+    width: 70%;
+    margin: 50px auto;
+    font-size: 16px;
+    color: #777;
+    line-height: 1.75em;
+}
+#team .content .brand {
+    margin-top: 90px;
+}
+#team .content .brand a {
+    display: block;
+    width: 30%;
+    float: left;
+    margin-left: 30px;
+}
+#contact {
+    background: url(https://ws1.sinaimg.cn/large/005GwhDcgy1fig22xycl7j305k048dhg.jpg) center center no-repeat;
+    background-size: cover;
+}
+#contact .content {
+    text-align: center;
+    border: 1px solid transparent;
+}
+#contact .content h1 {
+    color: #fff;
+    margin: 5rem 0;
+}
+#contact .content .form form {
+    width: 90%;
+    margin: 50px auto;
+}
+#contact .content .form form .input {
+    float: left;
+    width: 45%;
+    margin-left: 35px;
+}
+#contact .content .form form .input input {
+    display: block;
+    padding: 20px;
+    width: 100%;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.4em;
+    background: #fff;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+#contact .content .form form .textarea {
+    float: right;
+    margin-right: 35px;
+}
+#contact .content .form form .textarea textarea {
+    resize: none;
+    padding: 20px;
+    width: 480px;
+    height: 230px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.4em;
+    background: #fff;
+    border-radius: 5px;
+}
+#contact .content .form form .submit {
+    clear: both;
+    margin-bottom: 100px;
+}
+#contact .content .form form .submit button {
+    color: #fff;
+    background: #fed136;
+    padding: 10px 60px;
+    font-weight: 700;
+    font-size: 18px;
+    border: none;
+    border-radius: 3px;
+}
+#contact .content .form form .submit button:hover {
+    background: #fec503;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#footer .content {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+#footer .content .copyright {
+    line-height: 30px;
+    width: 30%;
+}
+#footer .content .links {
+    width: 30%;
+    text-align: center;
+}
+#footer .content .links ul {
+    display: inline-block;
+}
+#footer .content .links li {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: black;
+    margin: 0 5px;
+}
+#footer .content .links li:hover {
+    background: #fed136;
+    transition: 0.5s;
+}
+#footer .content .links li div {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    line-height: 40px;
+}
+#footer .content .privacy {
+    width: 30%;
+    line-height: 40px;
+}
+#footer .content .privacy a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #fed136;
+    text-decoration: none;
+}
+#footer .content .privacy a:hover {
+    text-decoration: underline;
+}
