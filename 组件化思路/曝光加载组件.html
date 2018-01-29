@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>懒加载1</title>
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    ul,
+    li {
+      list-style: none;
+    }
+    .items {
+      width: 720px;
+      margin: 0 auto;
+    }
+    img {
+      width: 340px;
+      height: 240px;
+    }
+    .clearfix::after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+    .items li {
+      float: left;
+      margin: 10px 10px;
+    }
+    p{
+      float: left;
+    }
+    p{
+      margin-bottom: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ct clearfix">
+    <ul class="items ">
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3e5hm7j30jg0t60uu.jpg"
+          />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3c7pylj30f908374h.jpg"
+          />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3by0kdj308m05rmxg.jpg"
+          />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3bj71zj30xc0irjwo.jpg"
+          />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd38clg0j30ia0c6mxy.jpg"
+          />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd37o7hzj30xc1e0gwt.jpg"
+          />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2pk4mqj30m80namyz.jpg"
+          />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2oez5kj30fa08daac.jpg"
+          />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2o5e5lj30l40sgjup.jpg"
+          />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <img src="http://i.imgur.com/bS4jUCz.gif" data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2lvl47j30sg1anjuw.jpg"
+          />
+        </a>
+      </li>
+    </ul>
+    
+  </div>
+  <p class="zimu">这是字母</p>
+  <p class="shuzi">这是数字</p>
+  <script>
+    
+    var Lazy = (function () {
+      function Exposure($target, callback) {
+        this.$target = $target;
+        this.callback = callback;
+        this.bind();
+        this.check();
+      }
+      Exposure.prototype.bind = function () {
+        var _this = this;
+        $(window).on('scroll', function () {
+          _this.check()
+        })
+      }
+      Exposure.prototype.check = function () {
+        if (this.isShow(this.$target)) {
+          this.callback(this.$target);
+        }
+      }
+      Exposure.prototype.isShow = function () {
+        var scrollTop = $(window).scrollTop(),
+          windowHeight = $(window).height(),
+          nodeHeight = this.$target.height(),
+          offsetTop = this.$target.offset().top;
+        if (offsetTop < scrollTop + windowHeight && offsetTop + nodeHeight > scrollTop) {
+          return true
+        }
+        return false
+      }     
+      return {
+        init: function ($target, callBack) {
+          $target.each(function (idx, node) {
+            new Exposure($(node), callBack);
+          })
+        },
+      }
+    })()
+    
+    Lazy.init($('.zimu'), function ($node) {
+      $node.text($node.text() + 'mmm');
+    })
+    Lazy.init($('.shuzi'), function ($node) {
+      $node.text($node.text() + '456');
+    })  
+
+    Lazy.init($('.items img'), function ($node) {
+      showImg($node);
+    })
+
+  function showImg($img){
+      var imgUrl = $img.attr('data-src');
+      $img.attr('src', imgUrl);
+      $(this).addClass('load')
+  }
+     
+
+  </script>
+</body>
+
+</html>

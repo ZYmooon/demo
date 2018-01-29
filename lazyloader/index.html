@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>懒加载1</title>
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+    .ct {
+      width: 404px;
+      margin: 10px auto;
+    }
+
+    img {
+      width: 160px;
+      height: 120px;
+    }
+
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      text-align: center;
+    }
+
+    li {
+      max-width: 160px;
+      height: 120px;
+      margin: 10px;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+<div class="ct">
+  <ul class="items">
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3e5hm7j30jg0t60uu.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3c7pylj30f908374h.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3by0kdj308m05rmxg.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3bj71zj30xc0irjwo.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd38clg0j30ia0c6mxy.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd37o7hzj30xc1e0gwt.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2pk4mqj30m80namyz.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2oez5kj30fa08daac.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2o5e5lj30l40sgjup.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2lvl47j30sg1anjuw.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3e5hm7j30jg0t60uu.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3c7pylj30f908374h.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3by0kdj308m05rmxg.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3bj71zj30xc0irjwo.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd38clg0j30ia0c6mxy.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd37o7hzj30xc1e0gwt.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2pk4mqj30m80namyz.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2oez5kj30fa08daac.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2o5e5lj30l40sgjup.jpg"/></a></li>
+    <li><a href="#"><img src="http://i.imgur.com/bS4jUCz.gif"
+                         data-src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2lvl47j30sg1anjuw.jpg"/></a></li>
+
+  </ul>
+
+</div>
+<script>
+  lazyRender();
+
+  var clock;
+  $(window).on('scroll', function(){
+    if(clock){
+      clearTimeout(clock)
+    }
+    clock = setTimeout(function(){
+      lazyRender()
+    }, 100)
+
+  });
+
+  function lazyRender() {
+    $('.ct img').each(function(){
+      if( checkShow($(this)) && !isLoaded($(this)) ){
+        loadImg($(this))
+      }
+    })
+  }
+
+  function checkShow($img) {
+    var scrollTop = $(window).scrollTop();
+    var windowHeight = $(window).height();
+    var offsetTop = $img.offset().top;
+    if(offsetTop < scrollTop + windowHeight && offsetTop > scrollTop) {
+      return true
+    }
+    return false
+  }
+
+  function isLoaded($img) {
+    return $img.attr('data-src') === $img.attr('src')
+  }
+
+  function loadImg($img){
+    $img.attr('src', $img.attr('data-src'))
+  }
+
+</script>
+</body>
+</html>

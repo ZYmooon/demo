@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>跨域</title>
+    <style type="text/css">
+        ul, li {
+            list-style: none;
+        }
+
+        li:hover {
+            color: #fff;
+            background-color: #6ff;
+        }
+
+        .news {
+            margin: auto;
+        }
+
+        li {
+            margin: 10px;
+
+        }
+
+        .btn {
+            outline: none;
+            border: 1px solid #ddd;
+            color: #000;
+            background-color: #fff;
+            border-radius: 3px;
+            display: block;
+            margin: 15px 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <ul class="news">
+        <li>第11日前瞻，中国冲击4金，博尔特再战</li>
+        <li>男双力争会师决赛</li>
+        <li>女排将死磕巴西！</li>
+    </ul>
+    <button class="change">换一组</button>
+</div>
+<script type="text/javascript">
+
+    console.log('hahaha')
+    $('.change').addEventListener('click', function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('get','http://b.zhouyi.com/getNews', true);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4 && xhr.status === 200){
+                appendHtml( JSON.parse(xhr.responseText))
+            }
+        }
+
+    });
+    function appendHtml(news){
+        var html = '';
+        for(var i=0; i<news.length; i++){
+            html += '<li>' + news[i] + '</li>'
+        }
+        console.log(html);
+        $('.news').innerHTML = html;
+
+    }
+    function $(id){
+        return document.querySelector(id)
+    }
+</script>
+</body>
+</html>
+
+
+

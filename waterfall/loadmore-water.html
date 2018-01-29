@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>瀑布流懒加载</title>
+
+  <style>
+    html,
+    body,
+    ul,
+    li,
+    p,
+    div {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+    /*.wrap {
+      width: 900px;
+      margin: 0 auto;
+    }*/
+
+    a {
+      text-decoration: none;
+    }
+
+    #pic-ct {
+      position: relative;
+      width: 900px;
+      margin: 0 auto;
+      border: 1px solid;
+    }
+
+    #pic-ct .item {
+      position: absolute;
+      padding: 0 0 10px 0;
+      width: 260px;
+      margin: 10px;
+      border: 1px solid #dfdfdf;
+      background: #fff;
+      opacity: 0;
+      transition: all, .8s;
+    }
+
+    #pic-ct img {
+      margin: 10px;
+      width: 220px;
+      /*width: calc(100% - 20px);*/
+    }
+
+    #pic-ct h4 {
+      height: 25px;
+      margin: 0 12px;
+      border-bottom: 1px solid #dbdbdb;
+    }
+
+    #pic-ct p {
+      font-size: 12px;
+      line-height: 1.8;
+      margin: 10px 15px 0;
+      color: #777371;
+    }
+
+    #load {
+      visibility: hidden;
+      height: 20px;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+  <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.js"></script>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="ct-waterfall">
+      <ul id="pic-ct">
+        <!-- <li class="item">
+              <a href ="#">
+                <img src = "http://n.sinaimg.cn/tech/transform/w600h400/20171203/6CG7-fypikwt4450324.jpg"/>
+              </a>
+                <h4 class="header">标题</h4>
+                <p class="desp">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, numquam.</p>
+
+          </li> -->
+
+        <!-- 用于计算item宽度和列数，但不显示 -->
+        <li class="item hide">
+
+        </li>
+      </ul>
+      <div id="load">
+        我是看不见的
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    var curPage = 1
+    var perPageCount = 10
+    var colSumHeight = []
+    var nodeWidth = $('.item').outerWidth(true)
+    //  console.log($('.item'))
+    var colNum = parseInt($('#pic-ct').width() / nodeWidth)
+    //  console.log(colNum)
+    for (var i = 0; i < colNum; i++) {
+      colSumHeight[i] = 0
+    }
+    //  console.log(colSumHeight)
+    start()
+    function start() {
+      getData(function (newsList) {
+        //  console.log(newsList)
+        $.each(newsList, function (idx, news) {
+          var $node = getNode(news)
+
+          $node.find('img').on('load', function () {
+            $('#pic-ct').append($node)
+            //    console.log( $node, 'load....')
+            waterFallPlace($node)
+          })
+        })
+        //waterFailPlace(nodes)
+      })
+    }
+    $(window).on('scroll', function () {
+      if (isVisable($('#load'))) {
+        console.log("loadmore")
+        start()
+      }
+    })
+    function isVisable($el) {
+      var scrollH = $(window).scrollTop()
+      var winH = $(window).height()
+      var offsetTop = $el.offset().top
+
+      if (offsetTop < winH + scrollH + 100) {
+        return true
+      } else {
+        return false
+      }
+    }
+    function getData(callback) {
+      $.ajax({
+        url: " http://platform.sina.com.cn/slide/album_tech",
+        dataType: 'jsonp',
+        jsonp: 'jsoncallback',
+        data: {
+          app_key: '1271687855',
+          num: perPageCount,
+          page: curPage
+        }
+      }).done(function (ret) {
+        if (ret && ret.status && ret.status.code === "0") {
+          callback(ret.data);
+          curPage++
+        } else {
+          console.log('error data')
+        }
+      })
+    }
+
+    function getNode(item) {
+      var tpl = ''
+      tpl += '<li class="item">';
+
+      tpl += '<a href="' + item.url + ' " class ="link"><img src = "' + item.img_url + '"alt="loading"/></a>';
+      tpl += '<h4 class="desp">' + item.short_name + '</h4>'
+      tpl += '<p class="desp">' + item.short_intro + '</p>'
+      tpl += '</li>'
+
+      return $(tpl)
+    }
+
+    function waterFallPlace($node) {
+
+      var idx = 0,
+        minSumHeight = colSumHeight[0];
+      for (var i = 0; i < colSumHeight.length; i++) {
+        if (colSumHeight[i] < minSumHeight) {
+          idx = i;
+          minSumHeight = colSumHeight[i]
+        }
+      }
+
+      //也可以这样写
+      // minSumHeight = Math.min.apply(null, colSumHeight)
+      $node.css({
+        left: nodeWidth * idx,
+        top: minSumHeight,
+        opacity: 1
+      })
+      colSumHeight[idx] = $node.outerHeight(true) + colSumHeight[idx]
+      $('#pic-ct').height(Math.max.apply(null, colSumHeight))
+    }
+
+
+  </script>
+</body>
+
+</html>

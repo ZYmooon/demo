@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>木桶布局</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .img-preview {
+      width: 900px;
+      margin: 20px auto;
+    }
+    .img-row {
+      margin-bottom: 10px;
+    }
+    .img-row:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+    .img-row .img-box {
+      float: left;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="img-preview">
+  </div>
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script>
+    function Barrels($ct) {
+      this.$ct = $ct; 
+      this.imgNum = 20; //
+      this.baseHeight = 150; //
+      this.rowList = [];
+      this.loadImg(); //加载图片
+    }
+
+    Barrels.prototype = {
+      loadImg: function () {
+        var _this = this;
+        var imgUrls = this.getImgUrls(this.imgNum); //赋值，获取的图片url数组
+        $.each(imgUrls, function (idx, url) { //遍历数组
+
+          var img = new Image(); //创建一个image标签
+          img.src = url; //将获取图片的url赋值给image标签的src
+          img.onload = function () { //img加载完后
+            var imgWidth = img.width, //获取图片宽度
+              imgHeight = img.height, //获取图片高度
+              ratio = imgWidth / imgHeight; //获取宽高比例
+
+            var imgInfo = {
+              target: $(img), //图片对象
+              width: _this.baseHeight * ratio,
+              height: _this.baseHeight,
+            };
+            _this.render(imgInfo); //渲染到页面
+          }
+        })
+      },
+      render: function (imgInfo) {
+        var _this = this;
+        var rowList = this.rowList,
+          rowWidth = 0, //放在容器内的一行图片宽度之和
+          rowHeight = 0,
+          clientWidth = this.$ct.width(), //容器的宽度
+          lastImgInfo = imgInfo; //最后一张图片
+
+        this.rowList.push(imgInfo); //将获取的图片数据信息放到空数组中
+
+        $.each(rowList, function (idx, imgInfo) { //遍历数组中的图片
+          rowWidth += imgInfo.width; //累积放在容器内的每张图片宽度之和 
+          if (rowWidth > clientWidth) {
+            rowList.pop(); //就把最后新加入的图片拿掉
+            rowWidth = rowWidth - lastImgInfo.width; //获取新的宽度之和
+            rowHeight = clientWidth * _this.baseHeight / rowWidth; //更改比例
+
+            _this.createRow(rowHeight); //将图片摆放进新节点
+            _this.rowList = []; //变成空数组
+            _this.rowList.push(lastImgInfo); //在把刚刚pop的img加入到新的数组中
+          }
+        })
+      },
+
+      createRow: function (rowHeight) {
+        var $rowCt = $('<div class="img-row"></div>');
+        $.each(this.rowList, function (idx, imgInfo) {
+          var $imgCt = $('<div class="img-box"></div>'),
+            $img = imgInfo.target;
+          $img.height(rowHeight);
+          $imgCt.append($img);
+          $rowCt.append($imgCt);
+        })
+        this.$ct.append($rowCt)
+      },
+
+      getImgUrls: function (num) {
+        var width, height, imgUrls = [];
+        for (var i = 0; i < num; i++) {
+          width = Math.floor(Math.random() * 100 + 150);
+          height = Math.floor(Math.random() * 30 + 100);
+          imgUrls.push("https://unsplash.it/" + width + "/" + height + "/?random"); //把得到的num张图片的url地址放到urls数组
+        }
+        return imgUrls;
+      }
+    }
+    var barrels = new Barrels($('.img-preview'))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "gulp-use",//发布npm包的时候需要的，表示npm包的名字
+  "version": "1.0.0",//包的版本号
+  "description": "",//对于这个包的简单描述
+  "main": "index.js",//入口文件
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"//
+  },
+  "keywords": [],// 关键字
+  "author": "",//作者
+  "license": "ISC",//
+  "devDependencies": {
+    "gulp": "^3.9.1",//所依赖的其他包的版本号
+    "gulp-concat": "^2.6.1",//
+    "gulp-cssnano": "^2.1.2"//
+  }
+}

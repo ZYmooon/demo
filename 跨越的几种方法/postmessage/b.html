@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html,body{
+            margin: 0;
+        }
+        input{
+            margin: 20px;
+            width: 200px;
+        }
+        iframe{
+            width: 450px;
+            height: 300px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<input id="input" type="text" placeholder="http://b.zhouyi.com:8080/b.html"/>
+<script>
+    $('#input').addEventListener('input',function(){
+        window.parent.postMessage(this.value, '*');
+    });
+    window.addEventListener('message', function (e) {
+        $('#input').value = e.data;
+        console.log(e.data)
+    });
+
+    function $(id){
+        return document.querySelector(id)
+    }
+</script>
+</body>
+</html>

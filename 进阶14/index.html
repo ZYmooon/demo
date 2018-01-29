@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    .div3{
+        height:50px; 
+        width: 50px;
+        background: #000;
+        position: relative;
+    }
+    </style>
+</head>
+<body>
+    <button class="btn">开始</button>
+    <button class="btn2">暂停</button>
+    <button class="btn3">结束</button>
+    <div class="div3"></div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(function() {
+  var $div3 = $('.div3');
+  var clickabe = true;
+  $('.btn').on('click', function() 
+    {var actions = [{width: 50,height:50,left: 110,top: 110},
+    {left: "100px",top: 110},
+    {top: "300px"},
+    {left:100},
+    {top: "100px"},
+    {left: "0px"},{top: "0px"},
+    {width: '50px',height: '50px'}];
+    actions.forEach(function(action, idx) {
+      console.log(action);
+      $div3.animate(action, 1000)
+    })
+  });
+  $('.btn3').on('click', function() {
+    console.log('finish');
+    $div3.finish()
+  });
+  $('.btn2').on('click', function() {
+    console.log('stop');
+    $div3.stop(true, true);
+  });
+})   
+</script>
+
+</body>
+</html>

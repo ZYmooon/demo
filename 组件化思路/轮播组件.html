@@ -1,0 +1,263 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>轮播组件</title>
+  <style>
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+      width: 30px;
+      height: 30px;
+    }
+
+    .carousel {
+      position: relative;
+      width: 340px;
+      height: 240px;
+      overflow: hidden;
+      margin: 0px auto;
+    }
+
+    .carousel .img-ct {
+      position: absolute;
+      overflow: hidden;
+    }
+
+    .carousel .img-ct>li {
+      float: left;
+    }
+
+    .carousel .img-ct img {
+      width: 340px;
+      height: 240px;
+    }
+
+    .carousel .btn {
+      position: absolute;
+      top: 50%;
+      margin-top: -15px;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      color: #fff;
+      text-align: center;
+    }
+
+    .carousel .btn:hover {
+      opacity: 0.5;
+    }
+
+    .carousel .btn-pre {
+      left: 15px;
+    }
+
+    .carousel .btn-next {
+      right: 15px;
+    }
+
+    .carousel .bullet {
+      position: absolute;
+      left: 50%;
+      margin-left: -100px;
+      width: 200px;
+      bottom: 15px;
+      z-index: 1;
+      text-align: center;
+      font-size: 0;
+    }
+
+    .carousel .bullet>li {
+      display: inline-block;
+      width: 20px;
+      height: 5px;
+      margin: 0 3px;
+      border: 1px solid rgb(235, 225, 226);
+      border-radius: 50px;
+      cursor: pointer;
+    }
+
+    .carousel .bullet>li.active {
+      background: #aa9f88;
+    }
+
+    .carousel:last-of-type {
+      margin-top: 10px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="carousel">
+    <ul class="img-ct">
+      <li data-id="0">
+        <a href="#">
+          <img src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3e5hm7j30jg0t60uu.jpg" alt="" />
+        </a>
+      </li>
+      <li data-id="1">
+        <a href="#">
+          <img src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3by0kdj308m05rmxg.jpg" alt="" />
+        </a>
+      </li>
+      <li data-id="2">
+        <a href="#">
+          <img src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd3bj71zj30xc0irjwo.jpg" alt="" />
+        </a>
+      </li>
+      <li data-id="3">
+        <a href="#">
+          <img src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd38clg0j30ia0c6mxy.jpg" alt="" />
+        </a>
+      </li>
+    </ul>
+    <a class="btn btn-pre" href="#"><</a>
+    <a class="btn btn-next" href="#">></a>
+        <ul class="bullet">
+          <li class="active"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+  </div>
+
+  <div class="carousel">
+    <ul class="img-ct">
+      <li data-id="0">
+        <a href="#">
+          <img src="https://ws1.sinaimg.cn/large/005GwhDcgy1fkrfsbq7rcj30zk0sgwz8.jpg" alt="" />
+        </a>
+      </li>
+      <li data-id="1">
+        <a href="#">
+          <img src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd1ur6b7j30fa0agdgu.jpg" alt="" />
+        </a>
+      </li>
+      <li data-id="2">
+        <a href="#">
+          <img src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd2ju30zj30be07l3z5.jpg" alt="" />
+        </a>
+      </li>
+      <li data-id="3">
+        <a href="#">
+          <img src="https://ws1.sinaimg.cn/large/005GwhDcgy1fksd1c6fekj3092092js5.jpg" alt="" />
+        </a>
+      </li>
+    </ul>
+    <a class="btn btn-pre" href="#">
+      <</a>
+        <a class="btn btn-next" href="#">></a>
+        <ul class="bullet">
+          <li class="active"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    var carousel = (function () {
+      function Carousel($ct) {
+        this.$ct = $ct;
+        this.init();
+        this.bind();
+        this.pageIndex = 0;
+        this.isAnimate = false; //设置移动状态
+      }
+      Carousel.prototype.init = function () {
+        this.$imgCt = this.$ct.find('.img-ct');
+        this.$imgs = this.$ct.find('.img-ct>li');
+        this.$preBtn = this.$ct.find('.btn-pre');
+        this.$nextBtn = this.$ct.find('.btn-next');
+        this.$bullets = this.$ct.find('.bullet li');
+
+        this.$imgCount = this.$imgs.length;
+        this.$imgWidth = this.$imgs.width();
+        this.$imgCt.append(this.$imgs.first().clone());
+        this.$imgCt.prepend(this.$imgs.last().clone());
+        this.$imgCt.width((this.$imgCount + 2) * this.$imgWidth);
+        this.$imgCt.css({ left: -this.$imgWidth });
+      };
+      Carousel.prototype.bind = function () {
+        var _this = this;
+        this.$preBtn.on('click', function () {
+          _this.playPre(1);
+        });
+        this.$nextBtn.on('click', function () {
+          _this.playNext(1);
+        });
+        this.$bullets.on('click', function () {
+          _this.$bullets.removeClass('active');
+          $(this).addClass('active');
+          var index = $(this).index();
+          console.log(index);
+          if (index > _this.pageIndex) {
+            _this.playNext(index - _this.pageIndex);
+          }
+          if (index < _this.pageIndex) {
+            _this.playPre(_this.pageIndex - index);
+          }
+        });
+      };
+      Carousel.prototype.playPre = function (len) {
+        var _this = this;
+        if (this.isAnimate) return;
+        this.isAnimate = true; // 设置点击锁
+        this.$imgCt.animate({
+          left: '+=' + len * _this.$imgWidth
+        }, function () {
+          _this.pageIndex -= len;
+          if (_this.pageIndex < 0) {
+            _this.pageIndex = 3;
+            _this.$imgCt.css({
+              left: -(_this.$imgCount * _this.$imgWidth)
+            });
+          }
+          _this.setBullet();
+          _this.isAnimate = false;
+        });
+      };
+      Carousel.prototype.playNext = function (len) {
+        var _this = this;
+        if (this.isAnimate) return;
+        this.isAnimate = true;
+        this.$imgCt.animate({
+          left: '-=' + len * _this.$imgWidth
+        }, function () {
+          _this.pageIndex += len;
+          if (_this.pageIndex > 3) {
+            _this.pageIndex = 0;
+            _this.$imgCt.css({
+              left: -_this.$imgWidth
+            });
+          }
+          _this.setBullet();
+          _this.isAnimate = false;
+        });
+      };
+      Carousel.prototype.setBullet = function () {
+        this.$bullets.removeClass('active')
+          .eq(this.pageIndex).addClass('active');
+      };
+      return {
+        init: function ($ct) {
+          $ct.each(function (index, node) {
+            new Carousel($(node));
+          });
+        }
+      };
+    })();
+    carousel.init($('.carousel'));
+  </script>
+</body>
+</html>

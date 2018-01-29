@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>requirejs实践</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <div id="header">
+    <div class="navbar"></div>
+    <div class="banner">
+      <div class="carousel">
+
+        <ul class="img-ct clearfix">
+          <li data-index="0">
+            <a href="#">
+              <img src="image/01.png" alt="">
+            </a>
+          </li>
+          <li data-index="1">
+            <a href="#">
+              <img src="image/img8.jpg" alt="">
+            </a>
+          </li>
+          <li data-index="2">
+            <a href="#">
+              <img src="image/img9.jpg" alt="">
+            </a>
+          </li>
+          <li data-index="3">
+            <a href="#">
+              <img src="image/img10.jpg" alt="">
+            </a>
+          </li>
+        </ul>
+        
+        <a class="btn btn-pre" href="#">
+          <</a>
+            <a class="btn btn-next" href="#">></a>
+            <ul class="bullet clearfix">
+              <li class="active"></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="news">
+      <h2>媒体报道</h2>
+      <ul id='pic-ct' class="clearfix">
+        <li class="item" style="display:none">
+       
+        </li>
+      </ul>
+      <div class="clear"></div>
+      <button class="btn-more">更多媒体报道</button>
+    </div>
+  </div>
+
+  </div>
+
+  <script src="js/require.js"></script>
+	<script>
+		requirejs.config({
+			baseUrl:"js",   
+			paths:{
+				'jquery':'jquery/jquery-1.9.1'   
+			},
+			// shim:{
+			// }
+		});
+		//加载入口模块
+		requirejs(['app/index'])
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .waterfall {
+      position: relative;
+    }
+
+    .waterfall .item {
+      position: absolute;
+      width: 200px;
+      margin-right: 10px;
+      margin-top: 10px;
+      transition: all 1s;
+    }
+
+    .waterfall .item.h1 {
+      height: 200px;
+      background-color: red;
+    }
+
+    .waterfall .item.h2 {
+      height: 250px;
+      background-color: green;
+    }
+
+    .waterfall .item.h3 {
+      height: 300px;
+      background-color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="waterfall">
+    <div class="item h1">
+      1
+    </div>
+    <div class="item h2">
+      2
+    </div>
+    <div class="item h3">
+      3
+    </div>
+    <div class="item h1">
+      4
+    </div>
+    <div class="item h2">
+      5
+    </div>
+    <div class="item h3">
+      6
+    </div>
+    <div class="item h3">
+      7
+    </div>
+    <div class="item h3">
+      8
+    </div>
+    <div class="item h1">
+      9
+    </div>
+    <div class="item h1">
+      10
+    </div>
+    <div class="item h2">
+      11
+    </div>
+    <div class="item h1">
+      12
+    </div>
+    <div class="item h2">
+      13
+    </div>
+    <div class="item h2">
+      14
+    </div>
+    <div class="item h1">
+      15
+    </div>
+    <div class="item h1">
+      16
+    </div>
+    <div class="item h3">
+      17
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-git.js"></script>
+  <script>
+    $(function () {
+      // 编写一个瀑布流布局插件
+      $.fn.waterfall = function () {
+        // 设置初始变量
+        // 列数 = 父容器宽度 / 每个 item 的宽度
+        var colLength = parseInt($(this).outerWidth(true) / $(this).find('.item').outerWidth(true))
+        colArr = [] // 记录每一列的当前高度的数组
+        $items = $(this).find('.item')
+        // 整个插件的主要逻辑
+        !function mainLogic() {
+          initArr(colLength, colArr) // 初始化列高度数组, 重置为 0          
+          renderItems($items, colArr) // 将每个 item 以瀑布流的形式展现出来
+        }()
+        // 数组重置函数
+        function initArr(length, arr) {
+          for (var i = 0; i < length; i++) {
+            arr[i] = 0
+          }
+        }
+        // 瀑布流布局函数
+        function renderItems($nodes, arr) {
+          $nodes.each(function () {
+            var minValue = Math.min.apply(null, arr)  // 高度数组的最小值
+            minIndex = arr.indexOf(minValue)  // 通过最小值求出其在高度数组中所对应的 (第一项) 位置
+            // 布局渲染部分
+            $(this).css({
+              top: arr[minIndex],
+              left: $(this).outerWidth(true) * minIndex
+            })
+            // 每布局一次, 该列所对应的列高度数组项 += 刚才所渲染部分的高度
+            arr[minIndex] += $(this).outerHeight(true)
+          })
+        }
+      }
+      // 调用这个瀑布流布局插件
+      $('.waterfall').waterfall()
+      // 对窗口尺寸变化进行监听
+      $(window).on('resize', function () {
+        $('.waterfall').waterfall()
+      })
+    })   
+  </script>
+</body>
+
+</html>

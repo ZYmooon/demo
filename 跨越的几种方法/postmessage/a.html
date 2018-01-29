@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    .ct {
+      display: inline-block;
+    }
+
+    .main {
+      width: 450px;
+      height: 300px;
+      border: 1px solid;
+      display: inline-block;
+      float: left;
+    }
+
+    iframe {
+      border: 1px dashed;
+      width: 450px;
+      height: 300px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<div class="ct">
+  <h1>使用postMessage实现跨域</h1>
+
+  <div class="main">
+    <input type="text" placeholder="http://a.zhouyi.com:8080/a.html"/>
+  </div>
+  <iframe src="http://b.zhouyi.com:8080/b.html" frameborder="0"></iframe>
+</div>
+<script>
+  $('.main input').addEventListener('input', function () {
+    console.log(this.value);
+    window.frames[0].postMessage(this.value, '*')
+  });
+  window.addEventListener('message', function (e) {
+    $('.main input').value = e.data;
+    console.log(e.data)
+  });
+  function $(id) {
+    return document.querySelector(id)
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="1.js"></script>
+    <style>
+        .xxx{
+            width: 200px;
+            height: 100px;
+            background: #ff1f1a;
+            border: 1px solid black;
+            float: left;
+        }
+        .active{
+            background: chartreuse;
+        }
+    </style>
+</head>
+<body>
+    <div class="xxx" ></div>
+    <div class="xxx" ></div>
+<script>
+    var $xxx = $('.xxx');
+    var div1 = $xxx[0];
+    var div2 = $xxx[1];
+
+    $xxx.on('click', function(){
+        $xxx.toggleClass('active')
+    });
+
+</script>
+</body>
+</html>

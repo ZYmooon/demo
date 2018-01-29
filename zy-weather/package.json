@@ -1,0 +1,48 @@
+{
+  "_from": "zy-weather",
+  "_id": "zy-weather@1.2.4",
+  "_inBundle": false,
+  "_integrity": "sha512-LgL93e+MBbv/j/lJdW8H+g4c2XjIXF0gqzkTdkd4UFxUQTxX+9IxGVAhEkzSd7EBCax1rtGKHkwy2wAomEVerg==",
+  "_location": "/zy-weather",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "zy-weather",
+    "name": "zy-weather",
+    "escapedName": "zy-weather",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/zy-weather/-/zy-weather-1.2.4.tgz",
+  "_shasum": "6ac7f5d3d67dd3bef104345e87abc0b1cfb947f3",
+  "_spec": "zy-weather",
+  "_where": "C:\\Users\\think",
+  "author": {
+    "name": "zhouyi"
+  },
+  "bin": {
+    "zy": "./index.js"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "axios": "^0.17.1"
+  },
+  "deprecated": false,
+  "description": "查询天气",
+  "keywords": [
+    "weather"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "zy-weather",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.2.4"
+}

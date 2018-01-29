@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>回到顶部</title>
+  <style>
+    *{margin: 0;padding: 0;}
+    .wrap{
+      background: #ccc;
+    }
+    .wrap li:nth-child(1){
+      margin-top: 0;
+    }
+    .wrap li {
+      margin: 10px;
+      padding: 20px;
+      min-width: 400px;
+      height: 100px;
+      border: 1px solid #ccc;
+      list-style: none;
+      border-radius: 10px;
+      background: red;
+    }
+    .btn{
+      text-decoration: none;
+      position: fixed;
+      right: 50px;
+      bottom: 50px;
+      border: 1px solid #666;
+      padding: 10px;
+      border-radius: 6px;
+      color: #fff;
+      background: #333;
+    }  
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <ul>
+      <li>1
+        <h3>当滚动条大于250px时，出现btn，当滚动条高度小于250px时，btn消失</h3>
+      </li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+    </ul>
+  </div>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script>
+    function GoTop($node) {
+      this.wrap = $node;
+      this.target = $('<button class="btn">回到顶部</button>');
+    }
+    GoTop.prototype.creatNode = function(){
+      this.target.appendTo(this.wrap);
+      this.target.hide()
+    }
+    GoTop.prototype.bindEvent = function(){
+      var _this = this;
+      $(window).on('scroll', function(){
+        if ($(window).scrollTop() < 200) {
+          _this.target.hide();
+           console.log('100')
+        } else {
+          _this.target.show();
+          console.log('200')
+        }
+      });
+      this.target.on('click', function(){
+        $(window).scrollTop(0);
+      })
+      
+    }
+    var GoTop = new GoTop($('body'));
+    GoTop.creatNode();
+    GoTop.bindEvent();
+  </script>
+</body>
+</html>

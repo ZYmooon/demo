@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <style>
+    .btn{
+      padding: 5px 10px;
+    }
+    .scrollHeight{
+      color:red;
+      font-size: 60px;
+      background: #ccc;
+    }
+    .changeColor{
+      width: 300px;
+      height:400px;
+      border: 1px solid;
+    }
+    .insert{
+      outline: none;
+    }
+
+  </style>
+</head>
+
+<body>
+<p>1.当点击button时，让btn的背景色变为红色再变为蓝色</p>
+<button class='btn'>点我</button>
+<p>2.当窗口滚动时，获取垂直滚动距离</p>
+<div class="scrollHeight"></div>
+<div class="changeColor">3.当鼠标放置到这里，背景色变为红色，移出鼠标背景色变为白色</div>
+<p>4.当鼠标激活 input 输入框时让输入框边框变为蓝色，当输入框内容改变时把输入框里的文字小写变为大写，当输入框失去焦点时去掉边框蓝色，控制台展示输入框里的文字</p>
+<input type="text" class="insert">
+<p>5.当选择 select 后，获取用户选择的内容</p>
+<select name="user" id="user">
+  <option value="菠萝">菠萝</option>
+  <option value="梨子">梨子</option>
+  <option value="苹果">苹果</option>
+  <option value="西瓜">西瓜</option>
+</select>
+<div class="selected"></div>
+
+<script>
+  //颜色由红变蓝
+  $('.btn').click(function() {
+    var $this = $(this);
+    $this.css({
+      backgroundColor: 'red'
+    });
+    setTimeout(function() {
+      $this.css({
+        backgroundColor: 'blue'
+      });
+    }, 1000);
+  });
+  //
+  //获取窗口滚动高度
+  $(window).scroll(function() {
+    $('.scrollHeight').text($(this).scrollTop());
+  });
+  //鼠标移动改变颜色
+  $('.changeColor').on('mouseenter',function(){
+    $(this).css({backgroundColor:'red'});
+  });
+  $('.changeColor').on('mouseleave',function(){
+    $(this).css({backgroundColor:'white'});
+  });
+  //输入框变化
+  $('.insert').focus(function(){
+    $(this).css({borderColor:'blue'})
+  }).blur(function(){
+    $(this).css({borderColor:''});
+    console.log(this.value);
+  }).keyup(function(){
+    this.value = this.value.toUpperCase();
+  });
+  //获取用户选择内容
+  $('#user').change(function(){
+    $('.selected').text(this.value);
+  })
+
+</script>
+</body>
+
+</html>
