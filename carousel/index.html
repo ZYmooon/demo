@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>carousel</title>
   <style>
+    body{
+      background: #cccccc;
+    }
     ul,li{
       margin: 0;
       padding: 0;
@@ -16,8 +19,8 @@
     }
     .carousel{
       position: relative;
-      width: 210px;
-      height: 140px;
+      width: 420px;
+      height: 280px;
       overflow: hidden;
       margin: 110px auto;
     }
@@ -29,7 +32,7 @@
       float: left;
     }
     .carousel .img_ct img{
-      width: 420px;
+     width: 420px;
       height: 280px;
     }
     .carousel .arrow{
@@ -169,8 +172,17 @@
               .eq(pageIndex)
               .addClass('active')
     }
-
-    setInterval(function(){playNext(1)},5000)   //每过5秒移动至下一张图片
+    function autoPlay() {
+      clock = setInterval(function () {
+         playNext(1)
+          }, 3000) 
+    }
+    $imgCt.mouseenter(function(){
+      clearInterval(clock)
+    }).mouseleave(function(){
+      autoPlay()
+    })
+     autoPlay();
   </script>
 </body>
 </html>

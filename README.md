@@ -6,4 +6,9 @@ https://zymooon.github.io/demo/demo2/moshou.html
 https://zymooon.github.io/demo/demo3/demo.html
 
 # Fm-music
-https://zymooon.github.io/demo/fm-demo/index.html
+http://htmlpreview.github.io/?https://github.com/ZYmooon/demo/blob/master/fm-demo/index.html
+
+# 渐变轮播
+http://htmlpreview.github.io/?https://github.com/ZYmooon/demo/blob/master/carousel/index2.html
+# 滑动轮播
+http://htmlpreview.github.io/?https://github.com/ZYmooon/demo/blob/master/carousel/index.html
