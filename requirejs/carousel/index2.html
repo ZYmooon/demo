@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      text-decoration: none
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+    .carousel {
+      width: 600px;
+      height: 420px;
+      position: relative;
+      overflow: hidden;
+      margin: 100px auto;
+      cursor: pointer;
+      border: 10px solid;
+    }
+
+    .ct {
+      position: absolute;
+      z-index: 1;
+    }
+
+    .ct img {
+      width: 600px;
+      height: 420px;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .btn {
+      cursor: pointer;
+      line-height: 39px;
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      z-index: 2;
+      top: 180px;
+      background-color: RGBA(0, 0, 0, .3);
+      color: #fff;
+      z-index: 1;
+    }
+
+    .btn:hover {
+      background-color: RGBA(0, 0, 0, .7);
+    }
+
+    .carousel:hover .btn {
+      display: block;
+    }
+
+    #pre {
+      left: 20px;
+    }
+
+    #next {
+      right: 20px;
+    }
+
+    .bullet {
+      position: absolute;
+      height: 10px;
+      width: 90px;
+      z-index: 2;
+      bottom: 20px;
+      left: 50%;
+      margin-left: -45px;
+    }
+
+    .bullet li {
+      cursor: pointer;
+      float: left;
+      border: 1px solid #fff;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #333;
+      margin: 0 3px;
+    }
+
+    .bullet .active {
+      background: orangered;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="carousel">
+    <div class="ct">
+      <img src="https://wallpaperscraft.com/image/road_marking_clouds_dawn_119319_1366x768.jpg" alt="">
+      <img src="https://wallpaperscraft.com/image/road_marking_lines_city_black-and-white_6415_1366x768.jpg" alt="">
+      <img src="https://wallpaperscraft.com/image/road_marking_double_continuous_lines_asphalt_paint_turn_52171_1366x768.jpg" alt="">
+      <img src="https://wallpaperscraft.com/image/road_asphalt_sun_light_patches_of_light_midday_river_coast_marking_lines_double_continuous_paint_clouds_volume_62343_1366x768.jpg"
+        alt="">
+    </div>
+    <span class='btn' id='pre'>
+      <</span>
+        <span class='btn' id='next'>></span>
+        <ul class="bullet">
+          <li class="active"></li>
+          <li class=""></li>
+          <li class=""></li>
+          <li class=""></li>
+        </ul>
+  </div>
+
+  <script>
+    var $ct = $('.ct');
+    var $imgs = $('.ct>img');
+    var $preBtn = $('#pre');
+    var $nextBtn = $('#next');
+    var $bullet = $('.bullet');
+    var imgsWidth = $imgs.width();
+    var imgCount = $imgs.length;
+
+    var pageIndex = 0;
+    var isAnimate = false;
+
+    play(0);
+
+    function play(idx) {
+      if (isAnimate) return;
+      isAnimate = true;
+      $imgs.eq(pageIndex).fadeOut(1100);
+      $imgs.eq(idx).fadeIn(1000, function () {
+        isAnimate = false;
+      });
+      pageIndex = idx;
+      setBullet();
+    }
+
+    $nextBtn.click(function () {
+      playNext();
+      console.log(pageIndex);
+    });
+    $preBtn.click(function () {
+      playPre();
+      console.log(pageIndex);
+    });
+
+    $bullet.find('li').click(function () {
+      var idx = $(this).index();
+      play(idx);
+    });
+
+    function playNext() {
+      play((pageIndex + 1) % imgCount);
+    }
+
+    function playPre() {
+      play((imgCount + pageIndex - 1) % imgCount);
+    }
+
+    function setBullet() {
+      $bullet.children().removeClass('active')
+        .eq(pageIndex).addClass('active');
+      console.log(pageIndex);
+    }
+
+    function autoPlay() {
+      clock = setInterval(function () {
+        playNext();
+      }, 3000);
+    }
+    $ct.mouseenter(function () {
+      clearInterval(clock);
+    }).mouseleave(function () {
+      autoPlay();
+    });
+    autoPlay();
+  </script>
+</body>
+
+</html>
