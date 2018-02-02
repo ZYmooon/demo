@@ -37,7 +37,7 @@
 </head>
 
 <body>
-  <div class="waterfall">
+  <div class="ct">
     <div class="item h1">
       1
     </div>
@@ -92,47 +92,39 @@
   </div>
   <script src="https://code.jquery.com/jquery-git.js"></script>
   <script>
-    $(function () {
-      // 编写一个瀑布流布局插件
-      $.fn.waterfall = function () {
-        // 设置初始变量
-        // 列数 = 父容器宽度 / 每个 item 的宽度
-        var colLength = parseInt($(this).outerWidth(true) / $(this).find('.item').outerWidth(true))
-        colArr = [] // 记录每一列的当前高度的数组
-        $items = $(this).find('.item')
-        // 整个插件的主要逻辑
-        !function mainLogic() {
-          initArr(colLength, colArr) // 初始化列高度数组, 重置为 0          
-          renderItems($items, colArr) // 将每个 item 以瀑布流的形式展现出来
-        }()
-        // 数组重置函数
-        function initArr(length, arr) {
-          for (var i = 0; i < length; i++) {
-            arr[i] = 0
-          }
-        }
-        // 瀑布流布局函数
-        function renderItems($nodes, arr) {
-          $nodes.each(function () {
-            var minValue = Math.min.apply(null, arr)  // 高度数组的最小值
-            minIndex = arr.indexOf(minValue)  // 通过最小值求出其在高度数组中所对应的 (第一项) 位置
-            // 布局渲染部分
-            $(this).css({
-              top: arr[minIndex],
-              left: $(this).outerWidth(true) * minIndex
-            })
-            // 每布局一次, 该列所对应的列高度数组项 += 刚才所渲染部分的高度
-            arr[minIndex] += $(this).outerHeight(true)
-          })
-        }
-      }
-      // 调用这个瀑布流布局插件
-      $('.waterfall').waterfall()
-      // 对窗口尺寸变化进行监听
-      $(window).on('resize', function () {
-        $('.waterfall').waterfall()
-      })
-    })   
+   var Render = (function() {
+    function init() {
+    waterFall();
+    $(window).resize(function() { //窗口尺寸每次变化，执行一次瀑布流
+      waterFall();
+    });
+  }
+
+  function waterFall() {
+    var $ctWidth = $('.ct').width(),//获取容器宽度
+      $nodeWidth = $('.item').width(),//获取每个节点宽度
+      colLength = parseInt($ctWidth / $nodeWidth),//获取页面每一行数量
+      itemArr = [];//初始化数组
+
+    for (var i = 0; i < colLength; i++) {
+      itemArr[i] = 0;//便利数组
+    }
+    $('.item').each(function() {
+      var minValue = Math.min.apply(null, itemArr);//获取最小值
+      var minIndex = itemArr.indexOf(minValue);//获取最小的索引值
+
+      $(this).css({//定义位置
+        top: itemArr[minIndex],
+        left: $(this).outerWidth(true) * minIndex
+      });
+      itemArr[minIndex] += $(this).outerHeight(true);
+    });
+  }
+  return {
+    init: init
+  };
+})();
+Render.init();
   </script>
 </body>
 
