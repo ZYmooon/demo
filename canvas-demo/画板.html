@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<meta name="robots" content="noindex">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>画板</title>
+  <style>
+  </style>
+<style id="jsbin-css">
+* {
+  margin: 0;
+  padding: 0;
+}
+ul li{
+  list-style: none;
+  margin: 3px;
+}
+
+.penColor {
+  width: 80px;
+  height:494px;
+  border: 1px solid;
+  position: absolute;
+  top: 0;
+  left: 110;
+  right: 110;
+  padding: 3px;
+  background: #ccc;
+}
+.penColor >div{
+  margin-top: 5px;
+  width:30px;
+  height: 30px;
+  border-radius:10px;
+  float: left;
+  margin-left: 4px;
+}
+canvas {
+  border: 1px solid #000;
+}
+.small{
+  width:15px;
+  height:15px;
+  background-color: black;
+  border-radius:50%;
+  margin-top: 200px;
+  margin-left: 30px;
+}
+.middle{
+  width:20px;
+  height:20px;
+  background-color: black;
+  border-radius:50%;
+  margin-top: 10px;
+  margin-left: 28px;
+}
+.big{
+  width:24px;
+  height:24px;
+  background-color: black;
+  border-radius:50%;
+  margin-top: 10px;
+  margin-left: 26px;
+}
+.xpc{
+  background-color: white;
+}
+.s{
+  width:10px;
+  height: 10px;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+.m{
+  width:20px;
+  height: 20px;
+  margin-top: 10px;
+  margin-left: 25px;
+}
+
+.b{
+  width:30px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+</style>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="1200" height="500">
+    你的浏览器不支持HTML5
+  </canvas>
+  <div class="penColor">
+    <div class="active" style="background-color:yellow;" onclick='linecolor="yellow";'></div>
+    <div style="background-color:#00FF00;" onclick='linecolor="#00FF00";'></div>
+    <div style="background-color:red;" onclick='linecolor="red";'></div>
+    <div style="background-color:blue;" onclick='linecolor="blue";'></div>
+    <div style="background-color:green;" onclick='linecolor="green";'></div>
+    <div style="background-color:black;" onclick='linecolor="black";'></div>
+    <div style="background-color:#E238EC;" onclick='linecolor="#E238EC";'></div>
+    <div style="background-color:navy;" onclick='linecolor="navy";'></div>
+    <div style="background-color:lightblue;" onclick='linecolor="lightblue";'></div>
+    <div style="background-color:gray;" onclick='linecolor="gray";'></div>
+    <ul class='penwidth'>
+      <li class="small active" onclick="linw = 4;"></li>
+      <li class="middle" onclick="linw = 8;"></li>
+      <li class="big" onclick="linw = 16;"></li>
+    </ul>
+     <ul>
+       <li><div class='xpc s active' onclick='linecolor="white"; linw = 5;'></div></li>
+       <li><div class='xpc m' onclick='linecolor="white";linw = 15;'></div></li>
+       <li><div class='xpc b' onclick='linecolor="white";linw = 25;'></div></li>
+    </ul>
+  </div>
+  <br />导出画板:
+  <button style="width:1s80px;background-color:pink;" onclick="copyimage();">Export Canvas To Image</button>
+  <br />
+  <br />
+  <img src="" id="image_png" width="600" height="300">
+  <script type="text/javascript">
+  </script>
+
+<script id="jsbin-javascript">
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+//按下标记
+var onoff = false;
+var oldx = 0;
+var oldy = 0;
+
+//设置画笔颜色
+var linecolor = "black";
+//设置线宽
+var linw = 4;
+//添加鼠标移动事件
+canvas.addEventListener("mousemove", draw, true);
+//添加鼠标按下事件
+canvas.addEventListener("mousedown", down, false);
+//添加鼠标弹起事件
+canvas.addEventListener("mouseup", up, false);
+
+/**
+ * 鼠标按下事件
+ **/
+function down(event) {
+    onoff = true;
+    //记录鼠标按下时的坐标做画线的起始坐标
+    oldx = event.pageX ;
+    oldy = event.pageY ;
+  }
+  /**
+   * 鼠标弹起事件
+   **/
+function up(event) {
+    onoff = false;
+    var oldx =0;
+    var oldy = 0;
+  }
+  /**
+   * 鼠标移动事件
+   **/
+function draw(event) {
+  if (true === onoff) {
+    //移动时的新坐标做画线的终止坐标
+    var newx = event.pageX;
+    var newy = event.pageY;
+    //开始画线
+    ctx.beginPath();
+    //设置画线起点
+    ctx.moveTo(oldx, oldy);
+    //设置画线终点
+    ctx.lineTo(newx, newy);
+    //设置画笔颜色
+    ctx.strokeStyle = linecolor;
+    //设置画笔粗细
+    ctx.lineWidth = linw;
+    //设置笔帽
+    ctx.lineCap = "round";
+    //完成画线
+    ctx.stroke();
+
+    //设置本次坐标为下次画线的起始坐标
+    oldx = newx;
+    oldy = newy;
+  }
+}
+
+//导出画板
+function copyimage(event) {
+  var img_png_src = canvas.toDataURL("image/png");
+  document.getElementById("image_png").src = img_png_src;
+}
+</script>
+</body>
+
+</html>
